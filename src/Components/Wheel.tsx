@@ -177,23 +177,36 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
     const extraSpins = 5 * 2 * Math.PI;
     const finalAngle = extraSpins + pointerOffset - targetAngle;
 
-    const interval = setInterval(() => {
-      frames++;
-      const progress = frames / 100;
-      rotation = angle + finalAngle * Math.sin((progress * Math.PI) / 2);
-      setAngle(rotation);
+    // === NOVA ANIMACIJA SA CUBIC BEZIER ===
+    const startAngle = angle;
+    const duration = 4000; // koliko dugo traje spin (ms)
+    const totalFrames = duration / 16; // ~60fps
 
-      if (frames >= 100) {
+    let frame = 0;
+
+    // easing funkcija - cubic-bezier(0.25, 1, 0.5, 1)
+    const easeOutCubicBezier = (t: number) => {
+      return t < 0 ? 0 : t > 1 ? 1 : 1 - Math.pow(1 - t, 3);
+    };
+
+    const interval = setInterval(() => {
+      frame++;
+      const progress = Math.min(frame / totalFrames, 1);
+
+      const easedProgress = easeOutCubicBezier(progress);
+      const currentRotation = startAngle + finalAngle * easedProgress;
+      setAngle(currentRotation);
+
+      if (progress >= 1) {
         clearInterval(interval);
         setIsSpinning(false);
         setSpinsLeft((p) => Math.max(p - 1, 0));
+
         if (next === 2) {
-          setTimeout(() => {
-            onOpen();
-          }, 750);
+          setTimeout(() => onOpen(), 750);
         }
       }
-    }, 20);
+    }, 16);
   };
 
   const alwaysOpen = claimed;
