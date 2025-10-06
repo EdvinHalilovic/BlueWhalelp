@@ -186,7 +186,7 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
 
     // easing funkcija - cubic-bezier(0.25, 1, 0.5, 1)
     const easeOutCubicBezier = (t: number) => {
-      return t < 0 ? 0 : t > 1 ? 1 : 1 - Math.pow(1 - t, 3);
+      return t < 0 ? 0 : t > 1 ? 1 : 1 - Math.pow(1 - t, 5);
     };
 
     const interval = setInterval(() => {
