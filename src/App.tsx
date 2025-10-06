@@ -27,15 +27,17 @@ const App: React.FC = () => {
     >
       <SoundButton />
       {/* === LEFT CHARACTER === */}
+      {/* === LEFT CHARACTER === */}
+      {/* === LEFT CHARACTER === */}
       <Image
         src="/leftCharacter.png"
         alt="Character Left"
         position="absolute"
         left="0"
         bottom="0"
-        transform="translateX(-15%)"
-        w="clamp(580px, 82vw, 2000px)"
-        h="92%"
+        transform="translateX(-6%) scaleX(1.25)" // 🔹 širi za 20%, visina ista
+        w="clamp(580px, 82vw, 2000px)" // 🔹 originalne širine
+        h="92%" // 🔹 visina ostaje identična
         objectFit="contain"
         pointerEvents="none"
         zIndex={1}
@@ -43,19 +45,16 @@ const App: React.FC = () => {
         mb="clamp(-40px, -8vh, -100px)"
         sx={{
           "@media (max-width: 1400px)": {
-            w: "clamp(520px, 78vw, 1600px)",
+            transform: "translateX(-6%) scaleX(1.2)", // 🔹 isto i na manjim ekranima
           },
           "@media (max-width: 1024px)": {
-            w: "clamp(420px, 75vw, 1300px)",
-            transform: "translateX(-6%)",
+            transform: "translateX(-4%) scaleX(1.2)",
           },
           "@media (max-width: 768px)": {
-            w: "clamp(340px, 85vw, 950px)",
-            transform: "translateX(-4%)",
+            transform: "translateX(-3%) scaleX(1.2)",
           },
           "@media (max-width: 480px)": {
-            w: "clamp(280px, 95vw, 750px)",
-            transform: "translateX(-3%)",
+            transform: "translateX(-2%) scaleX(1.2)",
           },
         }}
       />
