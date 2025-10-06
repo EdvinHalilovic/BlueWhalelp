@@ -209,9 +209,10 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
       mt="clamp(150px, 34vh, 500px)"
     >
       {/* === SPINS BANNER === */}
+      {/* === SPINS BANNER === */}
       <Box
         position="absolute"
-        top={["-46%", "-42%", "-30%"]}
+        top={["-32%", "-28%", "-30%"]} // desktop i tablet
         left="50%"
         transform="translateX(-50%)"
         w={["80vw", "70vw", "min(60vw, 420px)"]}
@@ -221,6 +222,13 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
         display="flex"
         alignItems="center"
         justifyContent="center"
+        sx={{
+          "@media (max-width: 480px)": {
+            transform: "translateX(-50%) scale(0.9, 1.3)", // 🔥 +15% širi, +30% viši
+            transformOrigin: "center top",
+            top: "-43%", // zadržavamo fino iznad wheela
+          },
+        }}
       >
         <Box
           as="img"
@@ -244,7 +252,7 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
         zIndex={2}
         textAlign="center"
         w="100%"
-        mt="clamp(-25px, -2.5vw, -35px)"
+        mt="clamp(-45px, -2.5vw, -35px)"
       >
         <Text
           color="#FFFFFF"
@@ -253,7 +261,6 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
           fontSize="clamp(0.9rem, 1.8vw, 1.2rem)"
           letterSpacing="0.05em"
           mb="0.2rem"
-          bg="#1F2763"
           display="inline-block"
           px="0.8rem"
           py="0.2rem"
@@ -421,7 +428,6 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
             animation={`${sparklesBlink} 3s ease-in-out infinite`}
           />
 
-          {/* === FRAME === */}
           <Box
             as="img"
             src="/blueWinningModal.png"
@@ -433,6 +439,17 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
             objectFit="contain"
             pointerEvents="none"
             zIndex={2}
+            sx={{
+              "@media (max-width: 480px)": {
+                width: "100vw",
+                height: "100dvh", // 🔹 cijeli ekran
+                objectFit: "contain",
+                top: "50%",
+                left: "58%",
+                transform: "translate(-50%, -50%) scale(2.0)",
+                transformOrigin: "center",
+              },
+            }}
           />
 
           {/* === SADRŽAJ === */}
@@ -447,6 +464,13 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
             textAlign="center"
             h="80vh"
             ml="-4.5rem"
+            sx={{
+              "@media (max-width: 480px)": {
+                gap: "0.4rem", // 🔹 puno manji razmak između svih elemenata na mobilnoj
+                h: "45vh",
+                mr: "-5rem", // 🔹 centrirano na mobitelu
+              },
+            }}
           >
             <Box mt="clamp(-1rem, -3vw, -0.5rem)">
               <Box
@@ -494,7 +518,7 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
 
               <Box
                 fontWeight="700"
-                fontSize="clamp(3rem, 5vw, 4rem)"
+                fontSize="clamp(2rem, 5vw, 4rem)"
                 color="white"
                 letterSpacing="0.05em"
                 lineHeight="1.2"

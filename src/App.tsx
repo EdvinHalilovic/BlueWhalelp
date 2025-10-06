@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, useMediaQuery } from "@chakra-ui/react";
 import Wheel from "./Components/Wheel";
+import MobileLayout from "./Components/MobileLayout";
+import SoundButton from "./Components/SoundButton";
 
 const App: React.FC = () => {
   const [spinsLeft, setSpinsLeft] = useState(2);
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
+  // Ako je mobile ekran, koristi MobileLayout
+  if (isMobile) {
+    return <MobileLayout spinsLeft={spinsLeft} setSpinsLeft={setSpinsLeft} />;
+  }
+
+  // Inače desktop verzija
   return (
     <Box
       w="100vw"
@@ -16,7 +25,8 @@ const App: React.FC = () => {
       bgPos="center"
       bgRepeat="no-repeat"
     >
-      {/* === LEFT CHARACTER (još +15% širi, ukupno ~40%) === */}
+      <SoundButton />
+      {/* === LEFT CHARACTER === */}
       <Image
         src="/leftCharacter.png"
         alt="Character Left"
@@ -50,7 +60,7 @@ const App: React.FC = () => {
         }}
       />
 
-      {/* === RIGHT CHARACTER (+20% širi) === */}
+      {/* === RIGHT CHARACTER === */}
       <Image
         src="/RightCarachters.png"
         alt="Character Right"
@@ -58,7 +68,7 @@ const App: React.FC = () => {
         right="0"
         bottom="0"
         transform="translateX(9%)"
-        w="clamp(260px, 42vw, 1100px)" // 🔥 +20% širine
+        w="clamp(260px, 42vw, 1100px)"
         h="105%"
         objectFit="contain"
         pointerEvents="none"
@@ -81,7 +91,7 @@ const App: React.FC = () => {
         }}
       />
 
-      {/* === WHALE LOGO IZNAD SPINSBANNERA === */}
+      {/* === WHALE LOGO === */}
       <Box
         position="absolute"
         top="clamp(3%, 5vh, 7%)"
@@ -121,7 +131,7 @@ const App: React.FC = () => {
         />
       </Box>
 
-      {/* === WHEEL CENTRIRAN === */}
+      {/* === WHEEL CENTER === */}
       <Box
         position="absolute"
         top="50%"
