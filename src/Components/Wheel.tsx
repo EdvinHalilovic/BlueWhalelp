@@ -166,9 +166,9 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
     const next = spinCount + 1;
     setSpinCount(next);
 
-    let rotation = angle;
-    let frames = 0;
+    const startAngle = angle;
 
+    // odredi na koji sektor treba stati
     const targetIndex = next === 1 ? 1 : 0;
     let targetAngle = targetIndex * sliceAngle;
     if (next === 1) targetAngle += sliceAngle / 6;
@@ -177,14 +177,12 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
     const extraSpins = 5 * 2 * Math.PI;
     const finalAngle = extraSpins + pointerOffset - targetAngle;
 
-    // === NOVA ANIMACIJA SA CUBIC BEZIER ===
-    const startAngle = angle;
-    const duration = 4000; // koliko dugo traje spin (ms)
-    const totalFrames = duration / 16; // ~60fps
-
+    // === ANIMACIJA SA CUBIC BEZIER ===
+    const duration = 4000; // 4 sekunde trajanje
+    const totalFrames = duration / 16; // ~60 fps
     let frame = 0;
 
-    // easing funkcija - cubic-bezier(0.25, 1, 0.5, 1)
+    // easing funkcija (cubic-bezier(0.25, 1, 0.5, 1))
     const easeOutCubicBezier = (t: number) => {
       return t < 0 ? 0 : t > 1 ? 1 : 1 - Math.pow(1 - t, 5);
     };
@@ -192,9 +190,8 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
     const interval = setInterval(() => {
       frame++;
       const progress = Math.min(frame / totalFrames, 1);
-
-      const easedProgress = easeOutCubicBezier(progress);
-      const currentRotation = startAngle + finalAngle * easedProgress;
+      const eased = easeOutCubicBezier(progress);
+      const currentRotation = startAngle + finalAngle * eased;
       setAngle(currentRotation);
 
       if (progress >= 1) {
