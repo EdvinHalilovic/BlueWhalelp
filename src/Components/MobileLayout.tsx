@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import Wheel from "./Wheel";
+import SoundButton from "./SoundButton";
 
 interface MobileLayoutProps {
   spinsLeft: number;
@@ -26,6 +27,9 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
       alignItems="center"
       justifyContent="flex-start"
     >
+      <Box position="absolute" top="3vh" right="4vw" zIndex={10}>
+        <SoundButton />
+      </Box>
       {/* === Whale logo === */}
       <Box
         position="relative"
