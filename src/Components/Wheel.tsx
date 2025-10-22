@@ -560,7 +560,34 @@ const Wheel: React.FC<WheelProps> = ({ spinsLeft, setSpinsLeft }) => {
                   transform: "scale(1.05)",
                   boxShadow: "0 0 1rem rgba(255, 216, 247, 0.4)",
                 }}
-                onClick={() => setClaimed(true)}
+                onClick={() => {
+                  navigator.clipboard.writeText("WHALE.IO").catch(() => {});
+
+                  const toast = document.createElement("div");
+                  toast.innerText = "✅ Code copied!";
+                  toast.style.position = "fixed";
+                  toast.style.bottom = "20px";
+                  toast.style.left = "50%";
+                  toast.style.transform = "translateX(-50%)";
+                  toast.style.background = "rgba(0,0,0,0.8)";
+                  toast.style.color = "#fff";
+                  toast.style.padding = "10px 20px";
+                  toast.style.borderRadius = "20px";
+                  toast.style.fontSize = "16px";
+                  toast.style.zIndex = "9999";
+                  toast.style.opacity = "0";
+                  toast.style.transition = "opacity 0.3s ease";
+                  document.body.appendChild(toast);
+                  setTimeout(() => (toast.style.opacity = "1"), 10);
+                  setTimeout(() => {
+                    toast.style.opacity = "0";
+                    setTimeout(() => toast.remove(), 300);
+                  }, 1200);
+
+                  setTimeout(() => {
+                    window.location.href = "https://whale.io";
+                  }, 1200);
+                }}
               >
                 CLAIM PRIZE
               </Box>
